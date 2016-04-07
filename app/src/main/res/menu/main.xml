@@ -9,7 +9,6 @@
     android:title="@string/app_name"
     android:orderInCategory="2"
     Tubbiz:showAsAction="always" />
-
     <item android:id="@+id/add"
         android:icon="@drawable/mas"
         android:title="añadir"
