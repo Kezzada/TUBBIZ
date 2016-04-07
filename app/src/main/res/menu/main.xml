@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:Tubbiz="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Main">
+
+    <item android:id="@+id/navegacion"
+        android:icon="@drawable/perfil"
+        android:title="@string/app_name"
+        android:orderInCategory="2"
+        Tubbiz:showAsAction="always" />
+
+    <item android:id="@+id/add"
+        android:icon="@drawable/mas"
+        android:title="añadir"
+        android:orderInCategory="1"
+        Tubbiz:showAsAction="always" />
+</menu>
