@@ -5,10 +5,10 @@
     tools:context=".Main">
 
     <item android:id="@+id/navegacion"
-        android:icon="@drawable/perfil"
-        android:title="@string/app_name"
-        android:orderInCategory="2"
-        Tubbiz:showAsAction="always" />
+    android:icon="@drawable/perfil"
+    android:title="@string/app_name"
+    android:orderInCategory="2"
+    Tubbiz:showAsAction="always" />
 
     <item android:id="@+id/add"
         android:icon="@drawable/mas"
