@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.sql.Connection;
+
 public class Tubbiz extends Activity {
 
     protected TextView fuentePers;
