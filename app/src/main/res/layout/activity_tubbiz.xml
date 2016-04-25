@@ -1,91 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:weightSum="1"
     tools:context=".Tubbiz">
 
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
-        android:gravity="center_vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:orientation="vertical"
+        android:layout_weight="0.05">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="215dp"
+            android:layout_height="55dp"
+            android:contentDescription="@string/logo"
+            android:src="@drawable/tubbiz"
+            android:layout_gravity="left" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="2"
+        android:layout_weight="0.3"
+        android:layout_marginTop="20dp">
 
         <TextView
+            android:id="@+id/registrar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/reg_strate_ahora"
+            android:textIsSelectable="false"
+            android:textSize="30sp" />
+
+        <TextView
             android:layout_width="match_parent"
-            android:text="Regístrate ahora"
-            android:textSize="30sp"
-            android:gravity="center"
-            android:layout_margin="30dp"
-            android:textColor="#000000" />
-      <TableRow >
-          <ImageButton
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:background="@drawable/loginfacebook"
-              android:layout_marginLeft="35dp"
-              android:gravity="center"
-              android:contentDescription="imagen de facebook"/>
-      </TableRow>
-        <TableRow>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/google"
-                android:layout_marginTop="50dp"
-                android:layout_marginLeft="35dp"
-                android:gravity="center"
-                android:contentDescription="imagen de google"/>
-        </TableRow>
-        <View
+            android:layout_height="wrap_content"
+            android:text="imagen de facebook" />
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_marginTop="15dp"
-            android:layout_height="10dp"
-            android:background="@android:color/darker_gray"/>
+            android:layout_height="wrap_content"
+            android:text="imagen de google" />
 
-        <LinearLayout
-            android:layout_width="116dp"
-            android:orientation="vertical"
-            android:layout_height="266dp"
-            android:weightSum="1">
+    </LinearLayout>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_marginTop="150dp"
-                android:layout_height="86dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_weight="0.05"
+        android:gravity="center">
 
-                <Button
-                    android:id="@+id/btnEntrar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginTop="20sp"
-                    android:textSize="20sp"
-                    android:text="ENTRAR"
-                    android:onClick="lanzarLogin"/>
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="lanzarLogin"
+            android:text="@string/entrar"
+            android:textSize="10sp" />
 
-                <Button
-                    android:id="@+id/btnRegistrar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginTop="20sp"
-                    android:textSize="20sp"
-                    android:text="REGISTRAR"
-                    android:onClick="lanzarRegistro"/>
-            </LinearLayout>
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="lanzarRegistro"
+            android:text="@string/registrar"
+            android:textSize="10sp" />
+    </LinearLayout>
 
-        </LinearLayout>
-        
-    </TableLayout>
 
 </LinearLayout>

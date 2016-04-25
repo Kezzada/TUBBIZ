@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">TUBBIZ</string>
     <string name="title_activity_login">Entra</string>
-
+    <string name="reg_strate_ahora">Regístrate ahora</string>
+    <string name="entrar">ENTRAR</string>
+    <string name="registrar">REGISTRAR</string>
+    <string name="logo">logo</string>
 </resources>
