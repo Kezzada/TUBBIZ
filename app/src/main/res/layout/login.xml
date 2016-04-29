@@ -7,13 +7,13 @@
 
     <EditText android:id="@+id/txtDNI"
         android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:hint="DNI"
         android:inputType="text"/>
 
     <EditText android:id="@+id/txtPass"
         android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:hint="Password"
         android:inputType="textPassword"
         android:layout_marginTop="15dip"
@@ -28,7 +28,7 @@
         android:paddingRight="15dip"/>
 
     <TextView android:id="@+id/login_error"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dip"
         android:layout_marginBottom="40dip"
