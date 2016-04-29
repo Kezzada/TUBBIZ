@@ -26,7 +26,6 @@ public class Login extends Activity {
     private TextView login;
     final Firebase ref = new Firebase(Tubbiz.FIREBASE_URL);
 
-
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
