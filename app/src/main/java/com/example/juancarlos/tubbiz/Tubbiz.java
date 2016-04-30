@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import java.sql.Connection;
-
 public class Tubbiz extends Activity {
 
     protected TextView fuentePers;
@@ -21,7 +19,6 @@ public class Tubbiz extends Activity {
         fuentePers = (TextView) findViewById(R.id.registrar);
         Typeface font = Typeface.createFromAsset(getAssets(), font_titulo);
         fuentePers.setTypeface(font);
-
     }
 
     public void lanzarLogin(View view) {
