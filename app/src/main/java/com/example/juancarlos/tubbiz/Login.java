@@ -1,96 +1,144 @@
 package com.example.juancarlos.tubbiz;
 
-import android.app.AlertDialog;
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+public class Login extends Activity{
 
-import java.util.Map;
+    private EditText etDni;
+    private EditText etPass;
 
-public class Login extends AppCompatActivity {
+    public static final String USER_DNI = "dni";
+    HttpURLConnection urlConnection = null;
+    String dni;
+    String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        final EditText etDni = (EditText) findViewById(R.id.etDNI);
-        final EditText etPassword = (EditText) findViewById(R.id.etPassword);
-        final TextView tvRegisterLink = (TextView) findViewById(R.id.tvRegistro);
-        final Button bLogin = (Button) findViewById(R.id.bLogin);
+        etDni = (EditText) findViewById(R.id.etDNI);
+        etPass = (EditText) findViewById(R.id.etPassword);
+    }
 
-        if (tvRegisterLink != null) {
-            tvRegisterLink.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent registerIntent = new Intent(Login.this, Registro.class);
-                    Login.this.startActivity(registerIntent);
+    public void invokeLogin(View view) {
+        dni = etDni.getText().toString();
+        password = etPass.getText().toString();
+
+        login(dni, password);
+
+    }
+
+    private void login(final String dni, String password) {
+
+        class LoginAsync extends AsyncTask<String, Void, String> {
+
+            private Dialog loadingDialog;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loadingDialog = ProgressDialog.show(Login.this, "Espera por favor", "Loading...");
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+                String dni = params[0];
+                String pass = params[1];
+
+                InputStream is = null;
+                ContentValues values = new ContentValues();
+                values.put("dni", dni);
+                values.put("password", pass);
+                String result = null;
+
+                try {
+                    /*
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpPost httpPost = new HttpPost("m13tubbiz.esy.es/login.php");
+                    HttpResponse response = httpClient.execute(httpPost);
+
+                    HttpEntity entity = response.getEntity();
+
+                    is = entity.getContent();
+*/
+
+                    URL url = new URL("http://m13tubbiz.esy.es/login.php");
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    urlConnection.connect();
+                    is = urlConnection.getInputStream();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    result = sb.toString();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            });
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                String s = result.trim();
+                loadingDialog.dismiss();
+                if (s.equalsIgnoreCase("success")) {
+                    Intent intent = new Intent(Login.this, AreaUsuario.class);
+                    intent.putExtra(USER_DNI, dni);
+                    finish();
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "DNI o Password invalidos", Toast.LENGTH_LONG).show();
+                }
+            }
         }
 
-        if (bLogin != null) {
-            bLogin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final String dni = etDni.getText().toString();
-                    final String password = etPassword.getText().toString();
+        LoginAsync la = new LoginAsync();
+        la.execute(dni, password);
 
-                    // Respuesta del servidor
-                    Response.Listener<String> responseListener = new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject jsonResponse = new JSONObject(response);
-                                boolean success = jsonResponse.getBoolean("success");
+    }
 
-                                if (success) {
-                                    String nombre = jsonResponse.getString("nombre");
-                                    String apellido = jsonResponse.getString("apellido");
-                                    String email = jsonResponse.getString("email");
 
-                                    Intent intent = new Intent(Login.this, AreaUsuario.class);
-                                    intent.putExtra("dni", dni);
-                                    intent.putExtra("nombre", nombre);
-                                    intent.putExtra("apellido", apellido);
-                                    intent.putExtra("email",email);
-                                    intent.putExtra("password",password);
-                                    Login.this.startActivity(intent);
-                                } else {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
-                                    builder.setMessage("¡Fallo al logear!")
-                                            .setNegativeButton("Reintentar", null)
-                                            .create()
-                                            .show();
-                                }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.login, menu);
+        return true;
+    }
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    };
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
-                    LoginRequest loginRequest = new LoginRequest(dni, password, responseListener);
-                    RequestQueue queue = Volley.newRequestQueue(Login.this);
-                    queue.add(loginRequest);
-                }
-            });
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 }

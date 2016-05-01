@@ -17,4 +17,6 @@
     <string name="entrar">entrar</string>
     <string name="registrar">registrar</string>
     <string name="logo">imagen corporativo</string>
+    <string name="action_settings">preferencias</string>
+
 </resources>
