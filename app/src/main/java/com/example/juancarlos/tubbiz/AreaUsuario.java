@@ -2,46 +2,22 @@ package com.example.juancarlos.tubbiz;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class AreaUsuario extends Activity {
+
+    private TextView dni;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_area_usuario);
 
-        Intent i = getIntent();
-        String dni = i.getStringExtra(Login.USER_DNI);
-        final EditText etNombre = (EditText) findViewById(R.id.etNombre);
-        final TextView mensajeBienvenida = (TextView) findViewById(R.id.tvBienvenido);
+        dni = (TextView) findViewById(R.id.tvDNI);
 
-        mensajeBienvenida.setText("Bienvenido" + dni);
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.area_usuario, menu);
-        return true;
-    }
+        Intent intent = getIntent();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        dni.setText("Bienvenido " + intent.getStringExtra(Login.KEY_USERNAME));
     }
 }

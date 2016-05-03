@@ -10,25 +10,42 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 
-public class Login extends Activity{
+public class Login extends Activity implements View.OnClickListener{
 
     private EditText etDni;
     private EditText etPass;
 
-    public static final String USER_DNI = "dni";
-    HttpURLConnection urlConnection = null;
-    String dni;
-    String password;
+    public static final String LOGIN_URL = "http://m13tubbiz.esy.es/login.php";
+
+    public static final String KEY_USERNAME="dni";
+    public static final String KEY_PASSWORD="password";
+
+    private Button buttonLogin;
+
+    private String dni;
+    private String pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,108 +54,54 @@ public class Login extends Activity{
 
         etDni = (EditText) findViewById(R.id.etDNI);
         etPass = (EditText) findViewById(R.id.etPassword);
+
+        buttonLogin = (Button) findViewById(R.id.bLogin);
+        buttonLogin.setOnClickListener(this);
     }
 
-    public void invokeLogin(View view) {
-        dni = etDni.getText().toString();
-        password = etPass.getText().toString();
 
-        login(dni, password);
+    private void userLogin() {
+        dni = etDni.getText().toString().trim();
+        pass = etPass.getText().toString().trim();
 
-    }
-
-    private void login(final String dni, String password) {
-
-        class LoginAsync extends AsyncTask<String, Void, String> {
-
-            private Dialog loadingDialog;
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                loadingDialog = ProgressDialog.show(Login.this, "Espera por favor", "Loading...");
-            }
-
-            @Override
-            protected String doInBackground(String... params) {
-                String dni = params[0];
-                String pass = params[1];
-
-                InputStream is = null;
-                ContentValues values = new ContentValues();
-                values.put("dni", dni);
-                values.put("password", pass);
-                String result = null;
-
-                try {
-                    /*
-                    HttpClient httpClient = new DefaultHttpClient();
-                    HttpPost httpPost = new HttpPost("m13tubbiz.esy.es/login.php");
-                    HttpResponse response = httpClient.execute(httpPost);
-
-                    HttpEntity entity = response.getEntity();
-
-                    is = entity.getContent();
-*/
-
-                    URL url = new URL("http://m13tubbiz.esy.es/login.php");
-                    urlConnection = (HttpURLConnection) url.openConnection();
-                    urlConnection.connect();
-                    is = urlConnection.getInputStream();
-
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
-                    StringBuilder sb = new StringBuilder();
-
-                    String line = null;
-                    while ((line = reader.readLine()) != null) {
-                        sb.append(line + "\n");
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, LOGIN_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if(response.trim().equals("success")){
+                            openProfile();
+                        }else{
+                            Toast.makeText(Login.this,response,Toast.LENGTH_LONG).show();
+                        }
                     }
-                    result = sb.toString();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return result;
-            }
-
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(Login.this,error.toString(),Toast.LENGTH_LONG ).show();
+                    }
+                }){
             @Override
-            protected void onPostExecute(String result) {
-                String s = result.trim();
-                loadingDialog.dismiss();
-                if (s.equalsIgnoreCase("success")) {
-                    Intent intent = new Intent(Login.this, AreaUsuario.class);
-                    intent.putExtra(USER_DNI, dni);
-                    finish();
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(getApplicationContext(), "DNI o Password invalidos", Toast.LENGTH_LONG).show();
-                }
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<String,String>();
+                map.put(KEY_USERNAME,dni);
+                map.put(KEY_PASSWORD,pass);
+                return map;
             }
-        }
+        };
 
-        LoginAsync la = new LoginAsync();
-        la.execute(dni, password);
-
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.login, menu);
-        return true;
+    private void openProfile(){
+        Intent intent = new Intent(this, AreaUsuario.class);
+        intent.putExtra(KEY_USERNAME, dni);
+        startActivity(intent);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public void onClick(View v) {
+        userLogin();
     }
 }

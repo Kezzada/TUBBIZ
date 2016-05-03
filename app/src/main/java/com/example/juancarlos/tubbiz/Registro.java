@@ -1,19 +1,21 @@
 package com.example.juancarlos.tubbiz;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.util.HashMap;
+import java.util.Map;
 
 public class Registro extends Activity implements View.OnClickListener {
 
@@ -26,7 +28,7 @@ public class Registro extends Activity implements View.OnClickListener {
     private Button bRegistro;
 
     private static final String REGISTER_URL = "http://m13tubbiz.esy.es/registro.php";
-
+    private String respuesta = "registrado correctamente";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class Registro extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v == bRegistro){
+        if (v == bRegistro) {
             registerUser();
         }
     }
@@ -57,45 +59,43 @@ public class Registro extends Activity implements View.OnClickListener {
         String email = edEmail.getText().toString().trim().toLowerCase();
         String password = edPassword.getText().toString().trim().toLowerCase();
 
-        register(dni,nombre,apellido,email,password);
+        register(dni, nombre, apellido, email, password);
     }
 
-    private void register(String dni, String nombre, String apellido, String email, String password) {
-        class RegisterUser extends AsyncTask<String, Void, String>{
-            ProgressDialog loading;
-            RegisterUserClass ruc = new RegisterUserClass();
-
-
+    private void register(final String dni, final String nombre, final String apellido, final String email, final String password) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if (response.equals(respuesta)) {
+                            Toast.makeText(Registro.this,response,Toast.LENGTH_LONG).show();
+                            onBackPressed();
+                            finish();
+                        } else {
+                            Toast.makeText(Registro.this, "Hay campos vacíos", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(Registro.this, error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
             @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                loading = ProgressDialog.show(Registro.this, "Por favor, espera",null, true, true);
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("dni", dni);
+                params.put("nombre", nombre);
+                params.put("apellido", apellido);
+                params.put("email", email);
+                params.put("password", password);
+                return params;
             }
 
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                loading.dismiss();
-                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
-            }
+        };
 
-            @Override
-            protected String doInBackground(String... params) {
-
-                HashMap<String, String> data = new HashMap<String,String>();
-                data.put("dni",params[0]);
-                data.put("nombre",params[1]);
-                data.put("apellido",params[2]);
-                data.put("email",params[3]);
-                data.put("password",params[4]);
-
-                String result = ruc.sendPostRequest(REGISTER_URL,data);
-
-                return  result;
-            }
-        }
-
-        RegisterUser ru = new RegisterUser();
-        ru.execute(dni,nombre,apellido,password,email);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 }
