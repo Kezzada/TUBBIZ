@@ -1,9 +1,11 @@
-package com.example.juancarlos.tubbiz;
+package com.example.juancarlos.tubbiz.Clientes;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.example.juancarlos.tubbiz.R;
 
 public class AreaUsuario extends Activity {
 
