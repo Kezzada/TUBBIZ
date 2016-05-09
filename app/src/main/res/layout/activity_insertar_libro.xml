@@ -26,49 +26,49 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etISBN"
-        android:text="@string/etIsbn"
+        android:hint="@string/etIsbn"
         android:inputType="text" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etNombre"
-        android:text="@string/etNombre"
+        android:hint="@string/etNombre"
         android:inputType="text" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etEditorial"
-        android:text="@string/etEditorial"
+        android:hint="@string/etEditorial"
         android:inputType="text" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etAutor"
-        android:text="@string/etAutor"
+        android:hint="@string/etAutor"
         android:inputType="text" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etGenero"
-        android:text="@string/etGenero"
+        android:hint="@string/etGenero"
         android:inputType="text" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etTipo"
-        android:text="@string/etTipo"
+        android:hint="@string/etTipo"
         android:inputType="text" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etPrecio"
-        android:text="@string/etPrecio"
+        android:hint="@string/etPrecio"
         android:inputType="numberDecimal" />
 
     <Button
