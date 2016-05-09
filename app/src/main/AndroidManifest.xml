@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.juancarlos.tubbiz">
 
-
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -23,9 +22,11 @@
         </activity>
         <activity android:name=".Clientes.Login" />
         <activity android:name=".Clientes.Registro" />
-        <activity android:name=".Clientes.AreaUsuario"></activity>
-
+        <activity android:name=".Clientes.AreaUsuario" />
+        <activity
+            android:name=".Clientes.AreaAdmin"
+            android:label="@string/title_activity_area_admin"
+            android:theme="@style/AppTheme"></activity>
     </application>
-
 
 </manifest>

@@ -1,9 +1,7 @@
 package com.example.juancarlos.tubbiz.Clientes;
 
 import android.app.Activity;
-
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,20 +21,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class Login extends Activity implements View.OnClickListener{
+public class Login extends Activity implements View.OnClickListener {
 
     private EditText etDni;
     private EditText etPass;
 
     public static final String LOGIN_URL = "http://m13tubbiz.esy.es/login.php";
 
-    public static final String KEY_USERNAME="dni";
-    public static final String KEY_PASSWORD="password";
+    public static final String KEY_USERNAME = "dni";
+    public static final String KEY_PASSWORD = "password";
 
     private Button buttonLogin;
 
     private String dni;
     private String pass;
+    private String dniP, dniJ, passA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +44,7 @@ public class Login extends Activity implements View.OnClickListener{
 
         etDni = (EditText) findViewById(R.id.etDNI);
         etPass = (EditText) findViewById(R.id.etPassword);
+
 
         buttonLogin = (Button) findViewById(R.id.bLogin);
         buttonLogin.setOnClickListener(this);
@@ -55,28 +55,39 @@ public class Login extends Activity implements View.OnClickListener{
         dni = etDni.getText().toString().trim();
         pass = etPass.getText().toString().trim();
 
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, LOGIN_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if(response.trim().equals("success")){
+                        if (response.equals("1")) {
+                            areaAdmin();
+                        } else if (response.equals("0")) {
                             openProfile();
-                        }else{
-                            Toast.makeText(Login.this,response,Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(Login.this, response, Toast.LENGTH_LONG).show();
                         }
                     }
-                },
-                new Response.ErrorListener() {
+                }
+
+                ,
+                new Response.ErrorListener()
+
+                {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Login.this,error.toString(),Toast.LENGTH_LONG ).show();
+                        Toast.makeText(Login.this, error.toString(), Toast.LENGTH_LONG).show();
                     }
-                }){
+                }
+
+        )
+
+        {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map = new HashMap<>();
-                map.put(KEY_USERNAME,dni);
-                map.put(KEY_PASSWORD,pass);
+                Map<String, String> map = new HashMap<>();
+                map.put(KEY_USERNAME, dni);
+                map.put(KEY_PASSWORD, pass);
                 return map;
             }
         };
@@ -85,8 +96,14 @@ public class Login extends Activity implements View.OnClickListener{
         requestQueue.add(stringRequest);
     }
 
-    private void openProfile(){
+    private void openProfile() {
         Intent intent = new Intent(this, AreaUsuario.class);
+        intent.putExtra(KEY_USERNAME, dni);
+        startActivity(intent);
+    }
+
+    private void areaAdmin() {
+        Intent intent = new Intent(this, AreaAdmin.class);
         intent.putExtra(KEY_USERNAME, dni);
         startActivity(intent);
     }
