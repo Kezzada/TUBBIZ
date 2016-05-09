@@ -1,6 +1,5 @@
-package com.example.juancarlos.tubbiz;
+package com.example.juancarlos.tubbiz.Clientes;
 
-import org.apache.http.HttpException;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

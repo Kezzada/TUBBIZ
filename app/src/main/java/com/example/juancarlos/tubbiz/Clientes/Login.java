@@ -1,4 +1,4 @@
-package com.example.juancarlos.tubbiz;
+package com.example.juancarlos.tubbiz.Clientes;
 
 import android.app.Activity;
 
@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.juancarlos.tubbiz.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -73,7 +74,7 @@ public class Login extends Activity implements View.OnClickListener{
                 }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map = new HashMap<String,String>();
+                Map<String,String> map = new HashMap<>();
                 map.put(KEY_USERNAME,dni);
                 map.put(KEY_PASSWORD,pass);
                 return map;

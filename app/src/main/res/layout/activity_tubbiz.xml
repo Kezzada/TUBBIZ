@@ -45,16 +45,6 @@
             android:textIsSelectable="false"
             android:textSize="30sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="imagen de facebook" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="imagen de google" />
-
     </LinearLayout>
 
     <LinearLayout
