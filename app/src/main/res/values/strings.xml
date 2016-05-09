@@ -18,10 +18,24 @@
     <string name="registrar">registrar</string>
     <string name="logo">imagen corporativo</string>
     <string name="action_settings">preferencias</string>
+    <!-- Menus Genericos -->
+    <string name="importar">Importar</string>
     <!-- Admin -->
     <string name="title_activity_area_admin">Area de Administrador</string>
     <!-- Usuario -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_area_usuario">Area de Usuario</string>
+    <!-- Subir imagen -->
+    <string name="bEscoger">Escoger imagen</string>
+    <string name="bSubir">Subir imagen</string>
+    <string name="foto_de_la_imagen_a_subir">foto de la imagen a subir</string>
+    <string name="etIsbn">Entrar ISBN</string>
+    <string name="etNombre">Entrar nombre</string>
+    <string name="etEditorial">Entrar editorial</string>
+    <string name="etAutor">Entrar autor</string>
+    <string name="etGenero">Entrar genero</string>
+    <string name="etPrecio">Entrar precio</string>
+    <string name="etTipo">Entrar tipo</string>
+
 </resources>

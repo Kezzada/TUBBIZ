@@ -29,7 +29,8 @@
         <activity
             android:name=".Clientes.AreaUsuario"
             android:label="@string/title_activity_area_usuario"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Libros.InsertarLibro"></activity>
     </application>
 
 </manifest>

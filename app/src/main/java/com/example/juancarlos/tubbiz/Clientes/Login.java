@@ -24,7 +24,7 @@ import java.util.Map;
  * Esta clase se encarga de la conexión con el servidor
  * utilizando las librerias de Volley y fichero PHP
  * Distingue entre usuario y administrador
- **/
+ */
 
 
 public class Login extends Activity implements View.OnClickListener {
@@ -56,9 +56,11 @@ public class Login extends Activity implements View.OnClickListener {
     }
 
     /*
+    * Según la respuesta del servidor (1 o 0) accederá cómo administrador o usuario
     * @param dni recibe el dni entrado por teclado
     * @param pass recibe el password entrado por teclado
-    * */
+    */
+
     private void userLogin() {
 
         dni = etDni.getText().toString().trim();
@@ -69,9 +71,9 @@ public class Login extends Activity implements View.OnClickListener {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if (response.equals("1")) {
+                        if (response.equals("1")) { // 1 administrador
                             areaAdmin();
-                        } else if (response.equals("0")) {
+                        } else if (response.equals("0")) { // 0 usuario
                             openProfile();
                         } else {
                             Toast.makeText(Login.this, response, Toast.LENGTH_LONG).show();
@@ -105,12 +107,14 @@ public class Login extends Activity implements View.OnClickListener {
         requestQueue.add(stringRequest);
     }
 
+    /* método que redigire a la activity de Area de usuario */
     private void openProfile() {
         Intent intent = new Intent(this, AreaUsuario.class);
         intent.putExtra(KEY_USERNAME, dni);
         startActivity(intent);
     }
 
+    /* método que redirige a la activity de Area de administrador */
     private void areaAdmin() {
         Intent intent = new Intent(this, AreaAdmin.class);
         intent.putExtra(KEY_USERNAME, dni);
