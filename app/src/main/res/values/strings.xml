@@ -18,8 +18,10 @@
     <string name="registrar">registrar</string>
     <string name="logo">imagen corporativo</string>
     <string name="action_settings">preferencias</string>
-    <string name="title_activity_area_admin">AreaAdmin</string>
-
+    <!-- Admin -->
+    <string name="title_activity_area_admin">Area de Administrador</string>
+    <!-- Usuario -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_area_usuario">Area de Usuario</string>
 </resources>

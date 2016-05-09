@@ -20,6 +20,12 @@ import com.example.juancarlos.tubbiz.R;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Esta clase se encarga de la conexión con el servidor
+ * utilizando las librerias de Volley y fichero PHP
+ * Distingue entre usuario y administrador
+ **/
+
 
 public class Login extends Activity implements View.OnClickListener {
 
@@ -35,7 +41,6 @@ public class Login extends Activity implements View.OnClickListener {
 
     private String dni;
     private String pass;
-    private String dniP, dniJ, passA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +55,12 @@ public class Login extends Activity implements View.OnClickListener {
         buttonLogin.setOnClickListener(this);
     }
 
-
+    /*
+    * @param dni recibe el dni entrado por teclado
+    * @param pass recibe el password entrado por teclado
+    * */
     private void userLogin() {
+
         dni = etDni.getText().toString().trim();
         pass = etPass.getText().toString().trim();
 

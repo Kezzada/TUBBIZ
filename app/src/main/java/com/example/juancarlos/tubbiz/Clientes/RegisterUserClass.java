@@ -1,6 +1,5 @@
 package com.example.juancarlos.tubbiz.Clientes;
 
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;

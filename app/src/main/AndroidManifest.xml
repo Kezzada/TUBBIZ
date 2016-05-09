@@ -22,10 +22,13 @@
         </activity>
         <activity android:name=".Clientes.Login" />
         <activity android:name=".Clientes.Registro" />
-        <activity android:name=".Clientes.AreaUsuario" />
         <activity
             android:name=".Clientes.AreaAdmin"
             android:label="@string/title_activity_area_admin"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Clientes.AreaUsuario"
+            android:label="@string/title_activity_area_usuario"
             android:theme="@style/AppTheme"></activity>
     </application>
 
