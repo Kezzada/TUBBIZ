@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -53,6 +54,8 @@ public class InsertarLibro extends Activity implements View.OnClickListener {
         etGenero = (EditText) findViewById(R.id.etGenero);
         etTipo = (EditText) findViewById(R.id.etISBN);
         etPrecio = (EditText) findViewById(R.id.etPrecio);
+
+        portada = (ImageView) findViewById(R.id.imageView);
 
         bEscoger.setOnClickListener(this);
         bSubir.setOnClickListener(this);
@@ -127,16 +130,17 @@ public class InsertarLibro extends Activity implements View.OnClickListener {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri filePath = data.getData();
-            try {
-                //Coger imagen de la galeria
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                //Pasar imagen a bitmap
-                portada.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (resultCode != RESULT_CANCELED) {
+            if (requestCode == PICK_IMAGE_REQUEST) {
+                Uri filePath = data.getData();
+                try {
+                    //Coger imagen de la galeria
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                    //Pasar imagen a bitmap
+                    portada.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
