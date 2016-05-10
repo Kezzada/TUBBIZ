@@ -70,6 +70,7 @@ public class InsertarLibro extends Activity implements View.OnClickListener {
     }
 
     public String pasarImagenCadena(Bitmap bmp) {
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
@@ -156,22 +157,7 @@ public class InsertarLibro extends Activity implements View.OnClickListener {
                 try {
                     //Coger imagen de la galeria
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-/*
-                    int width= bitmap.getWidth();
-                    int height = bitmap.getHeight();
-                    int newWidth= 1000;
-                    int newHeight=1000;
-
-                    float scaleWidth = ((float) newWidth) / width;
-                    float scaleHeight = ((float) newHeight) / height;
-
-                    Matrix matrix = new Matrix();
-                    // resize the Bitmap
-                    matrix.postScale(scaleWidth, scaleHeight);
-
-                    // volvemos a crear la imagen con los nuevos valores
-                    Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
-                            width, height, matrix, true);*/
+                    bitmap = Bitmap.createScaledBitmap(bitmap, 350, 250, false);
 
                     //Pasar imagen a bitmap
                     portada.setImageBitmap(bitmap);
