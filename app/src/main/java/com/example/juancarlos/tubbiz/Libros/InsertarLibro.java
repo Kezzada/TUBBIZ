@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -27,6 +27,7 @@ import com.example.juancarlos.tubbiz.R;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Map;
 
 public class InsertarLibro extends Activity implements View.OnClickListener {
@@ -38,7 +39,13 @@ public class InsertarLibro extends Activity implements View.OnClickListener {
     private int PICK_IMAGE_REQUEST = 1; // obtiene el mapa de bits de la galeria
     private String url = "http://m13tubbiz.esy.es/insertarLibro.php";
     private String key_imagen = "imagen";
+    private String key_isbn = "isbn";
     private String key_nombre = "nombre";
+    private String key_editorial = "editorial";
+    private String key_autor = "autor";
+    private String key_genero = "genero";
+    private String key_tipo = "tipo";
+    private String key_precio = "precio";
 
 
     @Override
@@ -98,15 +105,28 @@ public class InsertarLibro extends Activity implements View.OnClickListener {
                 //Converting Bitmap to String
                 String image = pasarImagenCadena(bitmap);
 
-                //Getting Image Name
-                String name = etNombre.getText().toString().trim();
+                // Recogida de valores
+                String isbn = etIsbn.getText().toString();
+                String name = etNombre.getText().toString().toLowerCase();
+                String editorial = etEditorial.getText().toString().toLowerCase();
+                String autor = etAutor.getText().toString().toLowerCase();
+                String genero = etGenero.getText().toString().toLowerCase();
+                String tipo = etTipo.getText().toString().toLowerCase();
+                String precio = String.valueOf(etPrecio.getText());
 
                 //Creating parameters
-                Map<String, String> params = new Hashtable<String, String>();
+                Map<String, String> params = new Hashtable<>();
 
                 //Adding parameters
                 params.put(key_imagen, image);
+                params.put(key_isbn, isbn);
                 params.put(key_nombre, name);
+                params.put(key_editorial, editorial);
+                params.put(key_autor, autor);
+                params.put(key_genero, genero);
+                params.put(key_tipo, tipo);
+                params.put(key_precio, precio);
+
 
                 //returning parameters
                 return params;
@@ -136,6 +156,23 @@ public class InsertarLibro extends Activity implements View.OnClickListener {
                 try {
                     //Coger imagen de la galeria
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+/*
+                    int width= bitmap.getWidth();
+                    int height = bitmap.getHeight();
+                    int newWidth= 1000;
+                    int newHeight=1000;
+
+                    float scaleWidth = ((float) newWidth) / width;
+                    float scaleHeight = ((float) newHeight) / height;
+
+                    Matrix matrix = new Matrix();
+                    // resize the Bitmap
+                    matrix.postScale(scaleWidth, scaleHeight);
+
+                    // volvemos a crear la imagen con los nuevos valores
+                    Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+                            width, height, matrix, true);*/
+
                     //Pasar imagen a bitmap
                     portada.setImageBitmap(bitmap);
                 } catch (IOException e) {
