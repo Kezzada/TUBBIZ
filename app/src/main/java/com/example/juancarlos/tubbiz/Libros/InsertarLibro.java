@@ -52,7 +52,7 @@ public class InsertarLibro extends Activity implements View.OnClickListener {
         etEditorial = (EditText) findViewById(R.id.etEditorial);
         etAutor = (EditText) findViewById(R.id.etAutor);
         etGenero = (EditText) findViewById(R.id.etGenero);
-        etTipo = (EditText) findViewById(R.id.etISBN);
+        etTipo = (EditText) findViewById(R.id.etTipo);
         etPrecio = (EditText) findViewById(R.id.etPrecio);
 
         portada = (ImageView) findViewById(R.id.imageView);
