@@ -30,6 +30,9 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 
+/** Esta clase se encarga de seleccionar una imagen de nuestro telefono movil,
+ *  rellenar los campos necesarios para añadir un libro en nuestra base de datos */
+
 public class InsertarLibro extends Activity implements View.OnClickListener {
 
     private Button bEscoger, bSubir;
@@ -37,7 +40,7 @@ public class InsertarLibro extends Activity implements View.OnClickListener {
     private EditText etIsbn, etNombre, etEditorial, etAutor, etGenero, etTipo, etPrecio;
     private Bitmap bitmap;
     private int PICK_IMAGE_REQUEST = 1; // obtiene el mapa de bits de la galeria
-    private String url = "http://m13tubbiz.esy.es/insertarLibro.php";
+    private String url = "http://m13tubbiz.esy.es/insertarLibro.php"; // ruta de nuestro fichero php
     private String key_imagen = "imagen";
     private String key_isbn = "isbn";
     private String key_nombre = "nombre";
@@ -68,7 +71,7 @@ public class InsertarLibro extends Activity implements View.OnClickListener {
         bSubir.setOnClickListener(this);
 
     }
-
+// método que pasa el bitmap a cadena de caracteres, String
     public String pasarImagenCadena(Bitmap bmp) {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -78,6 +81,7 @@ public class InsertarLibro extends Activity implements View.OnClickListener {
         return encodedImage;
     }
 
+    // método que sube la imagen al servidor
     private void uploadImage() {
         //Mensaje al pulsar
         final ProgressDialog loading = ProgressDialog.show(this, "Subiendo imagen...", "Por favor espere...", false, false);
@@ -103,10 +107,10 @@ public class InsertarLibro extends Activity implements View.OnClickListener {
                 }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                //Converting Bitmap to String
+                //pasamos el bitmap a string
                 String image = pasarImagenCadena(bitmap);
 
-                // Recogida de valores
+                //recogida de valores
                 String isbn = etIsbn.getText().toString();
                 String name = etNombre.getText().toString().toLowerCase();
                 String editorial = etEditorial.getText().toString().toLowerCase();
@@ -115,10 +119,10 @@ public class InsertarLibro extends Activity implements View.OnClickListener {
                 String tipo = etTipo.getText().toString().toLowerCase();
                 String precio = String.valueOf(etPrecio.getText());
 
-                //Creating parameters
+                //crea el Map y sus parametros
                 Map<String, String> params = new Hashtable<>();
 
-                //Adding parameters
+                //añadiendo parametros al Map
                 params.put(key_imagen, image);
                 params.put(key_isbn, isbn);
                 params.put(key_nombre, name);
@@ -128,19 +132,16 @@ public class InsertarLibro extends Activity implements View.OnClickListener {
                 params.put(key_tipo, tipo);
                 params.put(key_precio, precio);
 
-
-                //returning parameters
                 return params;
             }
         };
-
         //Creating a Request Queue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         //Adding request to the queue
         requestQueue.add(stringRequest);
     }
-
+    //método que coge la imagen de nuestra galeria de imagenes del telefono movil
     private void cogerImagenGaleria() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -155,11 +156,12 @@ public class InsertarLibro extends Activity implements View.OnClickListener {
             if (requestCode == PICK_IMAGE_REQUEST) {
                 Uri filePath = data.getData();
                 try {
-                    //Coger imagen de la galeria
+                    //coger imagen de la galeria
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                    //escalar imagen
                     bitmap = Bitmap.createScaledBitmap(bitmap, 350, 250, false);
 
-                    //Pasar imagen a bitmap
+                    //pasar imagen a bitmap
                     portada.setImageBitmap(bitmap);
                 } catch (IOException e) {
                     e.printStackTrace();

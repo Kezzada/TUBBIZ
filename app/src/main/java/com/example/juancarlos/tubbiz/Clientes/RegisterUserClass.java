@@ -14,15 +14,18 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
+/** Esta clase se encarga de recoger los datos del usuario registrado
+ * y enviarlo por metódo POST */
 public class RegisterUserClass {
 
     public String sendPostRequest(String requestURL, HashMap<String, String> postDataParams) {
 
         URL url;
         String response = "";
-        try {
+        try
+        {
+            // Realizamos la conexión HTTP
             url = new URL(requestURL);
-
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(15000);
             conn.setConnectTimeout(15000);
@@ -30,6 +33,7 @@ public class RegisterUserClass {
             conn.setDoInput(true);
             conn.setDoOutput(true);
 
+            // Crea el flujo de salida
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
@@ -38,14 +42,15 @@ public class RegisterUserClass {
             writer.flush();
             writer.close();
             os.close();
-            int responseCode=conn.getResponseCode();
+
+            int responseCode = conn.getResponseCode();
 
             if (responseCode == HttpsURLConnection.HTTP_OK) {
-                BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                // lee los datos recibidos de nuestra APP mediante un flujo de entrada
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 response = br.readLine();
-            }
-            else {
-                response="Error de registro";
+            } else {
+                response = "Error de registro";
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,7 +62,7 @@ public class RegisterUserClass {
     private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
         StringBuilder result = new StringBuilder();
         boolean first = true;
-        for(Map.Entry<String, String> entry : params.entrySet()){
+        for (Map.Entry<String, String> entry : params.entrySet()) {
             if (first)
                 first = false;
             else
@@ -67,7 +72,6 @@ public class RegisterUserClass {
             result.append("=");
             result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
         }
-
         return result.toString();
     }
 }

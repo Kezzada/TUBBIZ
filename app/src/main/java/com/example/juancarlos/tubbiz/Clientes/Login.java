@@ -32,6 +32,7 @@ public class Login extends Activity implements View.OnClickListener {
     private EditText etDni;
     private EditText etPass;
 
+    // Ruta remota hacia el fichero PHP que nos permite logearnos
     public static final String LOGIN_URL = "http://m13tubbiz.esy.es/login.php";
 
     public static final String KEY_USERNAME = "dni";
@@ -50,7 +51,6 @@ public class Login extends Activity implements View.OnClickListener {
         etDni = (EditText) findViewById(R.id.etDNI);
         etPass = (EditText) findViewById(R.id.etPassword);
 
-
         buttonLogin = (Button) findViewById(R.id.bLogin);
         buttonLogin.setOnClickListener(this);
     }
@@ -65,7 +65,6 @@ public class Login extends Activity implements View.OnClickListener {
 
         dni = etDni.getText().toString().trim();
         pass = etPass.getText().toString().trim();
-
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, LOGIN_URL,
                 new Response.Listener<String>() {
@@ -91,9 +90,7 @@ public class Login extends Activity implements View.OnClickListener {
                     }
                 }
 
-        )
-
-        {
+        ) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
