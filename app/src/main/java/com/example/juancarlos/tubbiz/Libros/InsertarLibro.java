@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -27,7 +26,6 @@ import com.example.juancarlos.tubbiz.R;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Map;
 
 public class InsertarLibro extends Activity implements View.OnClickListener {
