@@ -24,6 +24,7 @@ public class ListarLibros extends Activity {
 
     private ArrayList<String> imagen;
     private ArrayList<String> isbn;
+    
 
 
 
