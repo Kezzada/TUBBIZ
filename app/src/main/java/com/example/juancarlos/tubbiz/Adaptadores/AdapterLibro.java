@@ -4,47 +4,47 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.juancarlos.tubbiz.Beans.BeanLibro;
 import com.example.juancarlos.tubbiz.R;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
-public class AdapterLibro extends ArrayAdapter<BeanLibro> {
+public class AdapterLibro extends BaseAdapter {
 
     private Context context;
     private int groupid;
     private List<BeanLibro> listaLibros;
+    LayoutInflater inflater;
 
-    public AdapterLibro(Context context, int resource) {
-        super(context, resource);
+    public AdapterLibro(Context context, List<BeanLibro> listaLibros) {
+        this.context = context;
+        this.listaLibros = listaLibros;
+        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    @Override
+    public int getCount() {
+        return listaLibros.size();
+    }
 
-    public AdapterLibro(Context context, int vg, int id, ArrayList<BeanLibro>
-            listaLibros) {
+    @Override
+    public Object getItem(int position) {
+        return null;
+    }
 
-        super(context, vg, id, listaLibros);
-
-        this.context = context;
-
-        groupid = vg;
-
-        this.listaLibros = listaLibros;
-
-
+    @Override
+    public long getItemId(int position) {
+        return 0;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View itemView = inflater.inflate(groupid, parent, false);
+
+        View itemView = inflater.inflate(R.layout.layout_item_portada, parent, false);
 
         ImageView portada = (ImageView) itemView.findViewById(R.id.imagenPortada);
         portada.setImageBitmap(listaLibros.get(position).getPortada());
@@ -53,7 +53,7 @@ public class AdapterLibro extends ArrayAdapter<BeanLibro> {
         nombre.setText(listaLibros.get(position).getNombre());
 
         TextView precio = (TextView) itemView.findViewById(R.id.tvPrecio);
-        precio.setText(Double.toString(listaLibros.get(position).getPrecio()));
+        precio.setText(Double.toString(listaLibros.get(position).getPrecio()) + "€");
 
         return itemView;
     }

@@ -27,14 +27,6 @@ import java.util.ArrayList;
 public class ListarLibros extends Activity {
 
     public static final String URL = "http://m13tubbiz.esy.es/listarLibros.php";
-    //public static final String TAG_ISBN = "isbn";
-    public static final String TAG_NOMBRE = "nombre";
-    //public static final String TAG_EDITORIAL = "editorial";
-    //public static final String TAG_AUTOR = "autor";
-    //public static final String TAG_GENERO = "genero";
-    //public static final String TAG_TIPO = "tipo";
-    //public static final String TAG_PRECIO = "precio";
-    public static final String TAG_PORTADA = "imagen";
 
     private GridView galeria;
     private AdapterLibro adaptador;
@@ -44,7 +36,7 @@ public class ListarLibros extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_area_admin);
+        setContentView(R.layout.activity_area_admin);
         galeria = (GridView) findViewById(R.id.gridView);
         conectar();
 
@@ -72,7 +64,7 @@ public class ListarLibros extends Activity {
 
                                 listaLibros.add(new BeanLibro(nombre, precio, bitmap));
                             }
-                            adaptador = new AdapterLibro(ListarLibros.this, R.layout.layout_item_portada, R.id.imagenPortada, listaLibros);
+                            adaptador = new AdapterLibro(ListarLibros.this, listaLibros);
                             galeria.setAdapter(adaptador);
                         } catch (JSONException e) {
                             e.printStackTrace();
