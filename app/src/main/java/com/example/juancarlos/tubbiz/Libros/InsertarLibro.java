@@ -28,8 +28,10 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Map;
 
-/** Esta clase se encarga de seleccionar una imagen de nuestro telefono movil,
- *  rellenar los campos necesarios para añadir un libro en nuestra base de datos */
+/**
+ * Esta clase se encarga de seleccionar una imagen de nuestro telefono movil,
+ * rellenar los campos necesarios para añadir un libro en nuestra base de datos
+ */
 
 public class InsertarLibro extends Activity implements View.OnClickListener {
 
@@ -69,7 +71,8 @@ public class InsertarLibro extends Activity implements View.OnClickListener {
         bSubir.setOnClickListener(this);
 
     }
-// método que pasa el bitmap a cadena de caracteres, String
+
+    // método que pasa el bitmap a cadena de caracteres, String
     public String pasarImagenCadena(Bitmap bmp) {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -139,6 +142,7 @@ public class InsertarLibro extends Activity implements View.OnClickListener {
         //Adding request to the queue
         requestQueue.add(stringRequest);
     }
+
     //método que coge la imagen de nuestra galeria de imagenes del telefono movil
     private void cogerImagenGaleria() {
         Intent intent = new Intent();
