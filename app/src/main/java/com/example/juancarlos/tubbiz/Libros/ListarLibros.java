@@ -5,9 +5,7 @@ import android.widget.GridView;
 
 import java.util.ArrayList;
 
-/**
- * Created by Rein on 11/05/2016.
- */
+
 public class ListarLibros extends Activity {
 
     public static final String URL = "http://m13tubbiz.esy.es/listarLibros.php";
