@@ -2,12 +2,28 @@ package com.example.juancarlos.tubbiz.Beans;
 
 import android.graphics.Bitmap;
 
+/**
+ * Clase Libro
+ * @author Juan Carlos Quesada y Pedro Romero
+ * @version 12.05.2016
+ */
+
 public class BeanLibro {
 
     private String isbn, nombre, editorial, autor, genero, tipo;
     private double precio;
     private Bitmap portada;
-
+    /**
+     * Constructor
+     * @param isbn: contiene el ibsn del libro.
+     * @param nombre: contiene el nombre del libro.
+     * @param autor: contiene el nombre del autor del libro
+     * @param editorial: contiene editorial del libro
+     * @param genero: contiene el genero del libro.
+     * @param tipo: contiene el tipo de tapa que contiene el libro.
+     * @param precio: contiene el precio del libro (decimales) en euros
+     * @param portada: contiene la imagen de la portada del libro (bitmap)
+     */
     public BeanLibro(String isbn, String nombre, String autor, String editorial, String genero, String tipo, double precio, Bitmap portada) {
         this.isbn = isbn;
         this.nombre = nombre;
@@ -25,6 +41,9 @@ public class BeanLibro {
         this.portada = portada;
     }
 
+    /**
+     * Getter.
+     * @return isbn: isbn del libro*/
     public String getIsbn() {
         return isbn;
     }

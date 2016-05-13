@@ -14,6 +14,9 @@ import com.example.juancarlos.tubbiz.R;
 import java.util.HashMap;
 
 /**
+ * Clase Registro
+ * @author Juan Carlos Quesada y Pedro Romero Alvarez
+ * @version 12.05.2016
  * Esta clase recoge los datos entrados en la app y se encarga de enviarlos al fichero PHP
  * el cual introduce los datos en phpmyadmin
  */
