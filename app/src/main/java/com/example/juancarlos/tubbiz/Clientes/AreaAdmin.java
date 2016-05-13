@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -28,7 +25,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.juancarlos.tubbiz.Adaptadores.AdapterLibro;
 import com.example.juancarlos.tubbiz.Beans.BeanLibro;
 import com.example.juancarlos.tubbiz.Libros.InsertarLibro;
-import com.example.juancarlos.tubbiz.Libros.ListarLibros;
 import com.example.juancarlos.tubbiz.R;
 
 import org.json.JSONArray;
@@ -40,14 +36,6 @@ import java.util.ArrayList;
 public class AreaAdmin extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static final String URL = "http://m13tubbiz.esy.es/listarLibros.php";
-    //public static final String TAG_ISBN = "isbn";
-    public static final String TAG_NOMBRE = "nombre";
-    //public static final String TAG_EDITORIAL = "editorial";
-    //public static final String TAG_AUTOR = "autor";
-    //public static final String TAG_GENERO = "genero";
-    //public static final String TAG_TIPO = "tipo";
-    //public static final String TAG_PRECIO = "precio";
-    public static final String TAG_PORTADA = "imagen";
 
     private GridView galeria;
     private AdapterLibro adaptador;

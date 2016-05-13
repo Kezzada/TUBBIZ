@@ -1,7 +1,6 @@
 package com.example.juancarlos.tubbiz.Libros;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.juancarlos.tubbiz.R;
