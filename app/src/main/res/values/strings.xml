@@ -39,8 +39,6 @@
     <string name="etPrecio">Entrar precio</string>
     <string name="etTipo">Entrar tipo</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="imagen_del_libro">Imagen del libro</string>
 
 </resources>
