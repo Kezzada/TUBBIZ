@@ -35,11 +35,12 @@ import java.util.ArrayList;
 
 public class AreaAdmin extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    public static final String URL = "http://m13tubbiz.esy.es/listarLibros.php";
 
+    public static final String URL = "http://m13tubbiz.esy.es/listarLibros.php";
     private GridView galeria;
     private AdapterLibro adaptador;
     ArrayList<BeanLibro> listaLibros = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
